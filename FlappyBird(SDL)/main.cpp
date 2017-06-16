@@ -15,7 +15,7 @@
 int main(int argc,char **argv)
 {
 	Window *window = new Window;
-	window->Init("FlappyBird(SDL)", 384, 512);
+	window->Init(u8"FlappyBird(SDL)", 384, 512);//添加u8以支持中文
 
 	mainloop(window);
 
