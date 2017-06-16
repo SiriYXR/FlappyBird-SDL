@@ -1,0 +1,25 @@
+//===============================
+//程序名称：FlappyBird(SDL)
+//版本号：1.0
+//制作人：杨新瑞
+//
+//创建时间：2017-6-16 08:22:14
+//完工时间：
+//代码量：行
+//制作周期：1 天
+//
+//===============================
+
+#include "function.h"
+
+int main(int argc,char **argv)
+{
+	Window *window = new Window;
+	window->Init("FlappyBird(SDL)", 384, 512);
+
+	mainloop(window);
+
+	window->Quit();
+	delete window;
+	return 0;
+}
