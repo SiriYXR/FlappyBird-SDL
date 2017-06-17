@@ -59,6 +59,8 @@ void Scene::enent()
 
 void Scene::update()
 {
+	uodate_time();
+
 	if (state == choice)
 		update_choice();
 	if (state == ready)
@@ -146,13 +148,23 @@ void Scene::mouseevent()
 		if (state == pause)
 		{
 			state = gameing;
+			keyDown = 10;
+			birdStatus = 2;
+			acceleration = -180;
+			lastTime = time;
 
 		}
+
 	}
 
 	if (events.button.button == SDL_BUTTON_RIGHT)
 	{
-		if (state == gameing)
+		if (state == pause)
+		{
+			state = gameing;
+
+		}
+		else if (state == gameing)
 		{
 			state = pause;
 
@@ -173,6 +185,13 @@ void Scene::keyevent()
 	}
 }
 
+void Scene::uodate_time()
+{
+	time += 1;
+	if (time == 10000)
+		time = 0;
+}
+
 void Scene::update_choice()
 {
 	update_groundPosition();
@@ -182,10 +201,8 @@ void Scene::update_choice()
 void Scene::update_bootInterface()
 {
 	update_groundPosition();
-	time += 1;
 	temp = time % 64;
-	if (time == 10000)
-		time = 0;
+	
 }
 
 void Scene::update_groundPosition()
@@ -202,12 +219,11 @@ void Scene::update_init()
 	birdHeight = 250;
 	lastTime = 0;
 	time = 0;
-	c = 0;
 
 	score = 0;
-	acceleration = 0;
-	birdStatus = 1;
-	keyDown = 0;
+	acceleration = -180;
+	birdStatus = 2;
+	keyDown = 10;
 	deadstate = 0;
 
 	for (int i = 0, x = 700; i < 3; ++i, x += 240)
@@ -218,15 +234,14 @@ void Scene::update_init()
 
 void Scene::update_gameing()
 {
-	time += 1;
 	update_groundPosition();
 
 	/***************计算高度************************/
 	acceleration += 9.8;
-	birdHeight += acceleration*1.9 / 77;
+	birdHeight += acceleration*3/ 77;
 
 	/***************柱子的移动**********************/
-	for (c = 0; c < 3; c++)
+	for (int c = 0; c < 3; c++)
 	{
 		obstacle[c].x -= 2;
 		if (obstacle[c].x <= -70)
@@ -238,7 +253,7 @@ void Scene::update_gameing()
 	}
 
 	/***************计算分数****************/
-	for (c = 0; c < 3; ++c)	//只要障碍物通过鸟的位置，分数就加一
+	for (int c = 0; c < 3; ++c)	//只要障碍物通过鸟的位置，分数就加一
 	{
 		if (obstacle[c].x == 100 - 66)
 		{
@@ -302,7 +317,7 @@ bool Scene::isGameOver()
 			return true;
 		}
 	//判断鸟是否撞到地面
-	if (birdHeight > 415)
+	if (birdHeight > 420)
 	{
 		return true;
 	}
@@ -442,7 +457,7 @@ void Scene::rend_Bird()
 	//利用模拟时间实现鸟的动态变化
 	temp = time % 16;
 	//水平
-	if (birdStatus & 1)
+	if (birdStatus == 1)
 	{
 		if (temp >= 0 && temp < 4)
 			win->Draw(win->mPicture->wingCentered0, 100, birdHeight);
@@ -458,12 +473,12 @@ void Scene::rend_Bird()
 			if (keyDown == 0)
 			{
 				birdStatus = 4;
-				keyDown = 10;
+				keyDown = 5;
 			}
 		}
 	}
 	//斜向上20度
-	else if (birdStatus & 2)
+	else if (birdStatus == 2)
 	{
 		if (temp >= 0 && temp < 4)
 			win->Draw(win->mPicture->wingCentered20, 100, birdHeight);
@@ -484,7 +499,7 @@ void Scene::rend_Bird()
 		}
 	}
 	//斜向下20度
-	else if (birdStatus & 4)
+	else if (birdStatus == 4)
 	{
 		if (temp >= 0 && temp < 4)
 			win->Draw(win->mPicture->wingCentered_20, 100, birdHeight);
@@ -511,7 +526,7 @@ void Scene::rend_gameOver()
 	else
 		win->Draw(win->mPicture->background_night, 0, 0);
 
-	if (birdHeight < 410)//如果鸟到达地面，游戏结束，退出循环
+	if (birdHeight < 420)//如果鸟到达地面，游戏结束，退出循环
 		rend_birdfall();
 	else
 		rend_scorecard();
@@ -519,7 +534,7 @@ void Scene::rend_gameOver()
 
 void Scene::rend_obstacle()
 {
-	for (c = 0; c < 3; c++)
+	for (int c = 0; c < 3; c++)
 	{
 		win->Draw(win->mPicture->obstacleUp, obstacle[c].x, obstacle[c].h);
 		win->Draw(win->mPicture->obstacleDown, obstacle[c].x, (obstacle[c].h - 400));
@@ -530,6 +545,8 @@ void Scene::rend_birdfall()
 {
 	//显示柱子
 	rend_obstacle();
+	//显示地面
+	rend_ground();
 
 	//显示鸟
 	temp = time % 16;
@@ -545,8 +562,7 @@ void Scene::rend_birdfall()
 	//模拟鸟下降速度变化
 	acceleration += 9.8;
 	birdHeight += acceleration * 2 / 77;
-	//显示地面
-	rend_ground();
+	
 }
 
 void Scene::rend_scorecard()
@@ -554,7 +570,7 @@ void Scene::rend_scorecard()
 	rend_obstacle();
 	//显示地面
 	rend_ground();
-	win->Draw(win->mPicture->wingCentered_90, 100, birdHeight);
+	win->Draw(win->mPicture->wingCentered_90, 100, birdHeight - 13);
 	//画结束界面
 	if (deadstate == 0)
 	{
@@ -566,7 +582,7 @@ void Scene::rend_scorecard()
 	else if (deadstate == 1)
 	{
 		deadstate++;
-		for (int i = 512; i > 150; i -= 2)
+		for (int i = 512; i > 150; i -= 6)
 		{
 			win->Clear();
 			if (daystate == 0)
@@ -575,9 +591,10 @@ void Scene::rend_scorecard()
 				win->Draw(win->mPicture->background_night, 0, 0);
 			rend_obstacle();
 			rend_ground();
-			win->Draw(win->mPicture->wingCentered_90, 100, birdHeight);
+			win->Draw(win->mPicture->wingCentered_90, 100, birdHeight - 13);
 			win->Draw(win->mPicture->gameOver, 55, 60);
 			win->Draw(win->mPicture->scoreCard, 35, i);
+			win->Present();
 			SDL_Delay(1);
 		}
 		
@@ -587,7 +604,7 @@ void Scene::rend_scorecard()
 	else if (deadstate == 2)
 	{
 		deadstate++;
-		win->Draw(win->mPicture->wingCentered_90, 100, birdHeight);
+		win->Draw(win->mPicture->wingCentered_90, 100, birdHeight - 13);
 		win->Draw(win->mPicture->gameOver, 55, 60);
 		win->Draw(win->mPicture->scoreCard, 35, 150);
 		win->Draw(win->mPicture->restart, 35, 350);
@@ -606,7 +623,7 @@ void Scene::rend_scorecard()
 				win->Draw(win->mPicture->background_night, 0, 0);
 			rend_obstacle();
 			rend_ground();
-			win->Draw(win->mPicture->wingCentered_90, 100, birdHeight);
+			win->Draw(win->mPicture->wingCentered_90, 100, birdHeight - 13);
 			win->Draw(win->mPicture->gameOver, 55, 60);
 			win->Draw(win->mPicture->scoreCard, 35, 150);
 			win->Draw(win->mPicture->restart, 35, 350);
@@ -614,6 +631,7 @@ void Scene::rend_scorecard()
 
 			rend_score_S(271, 195, i);
 			rend_score_S(271, 260, maxScore);
+			win->Present();
 			SDL_Delay(50);
 		}
 		SDL_Delay(400);
@@ -626,7 +644,7 @@ void Scene::rend_scorecard()
 			win->Draw(win->mPicture->background_night, 0, 0);
 		rend_obstacle();
 		rend_ground();
-		win->Draw(win->mPicture->wingCentered_90, 100, birdHeight);
+		win->Draw(win->mPicture->wingCentered_90, 100, birdHeight - 13);
 		win->Draw(win->mPicture->gameOver, 55, 60);
 		win->Draw(win->mPicture->scoreCard, 35, 150);
 		win->Draw(win->mPicture->restart, 35, 350);

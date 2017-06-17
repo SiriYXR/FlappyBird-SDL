@@ -17,6 +17,7 @@ private:
 	void mouseevent();
 	void keyevent();
 
+	void uodate_time();
 	void update_choice();
 	void update_bootInterface();
 	void update_groundPosition();
@@ -64,8 +65,6 @@ private:
 	Obstacle obstacle[3];
 	int groundPosition;
 	int wingsMark;
-
-	int c;
 
 	bool isover;
 };
