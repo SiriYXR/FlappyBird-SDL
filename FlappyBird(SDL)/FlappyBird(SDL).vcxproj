@@ -147,12 +147,14 @@
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainloop.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="function.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Window.h" />

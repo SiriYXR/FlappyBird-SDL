@@ -115,7 +115,7 @@ void Scene::mouseevent()
 		if (state == ready&&time >= 30)
 		{
 			state = init;
-
+			win->mMusic->wing->play();
 		}
 
 		if (state == choice && (x > 35 && x < 175 && y>360 && y < 440))
@@ -124,7 +124,7 @@ void Scene::mouseevent()
 			state = ready;
 			update_birdcolor();
 			update_daystate();
-
+			win->mMusic->wing->play();
 		}
 
 		if (state == deadchoice &&deadstate == 4 && (x > 35 && x < 175 && y>360 && y < 440))	//判断是否点击重新开始
@@ -133,7 +133,7 @@ void Scene::mouseevent()
 			state = ready;
 			update_birdcolor();
 			update_daystate();
-
+			win->mMusic->wing->play();
 		}
 
 		if (time - lastTime > 1 && state == gameing)
@@ -142,7 +142,7 @@ void Scene::mouseevent()
 			birdStatus = 2;
 			acceleration = -180;
 			lastTime = time;
-
+			win->mMusic->wing->play();
 		}
 
 		if (state == pause)
@@ -152,7 +152,7 @@ void Scene::mouseevent()
 			birdStatus = 2;
 			acceleration = -180;
 			lastTime = time;
-
+			win->mMusic->wing->play();
 		}
 
 	}
@@ -162,12 +162,11 @@ void Scene::mouseevent()
 		if (state == pause)
 		{
 			state = gameing;
-
+			win->mMusic->wing->play();
 		}
 		else if (state == gameing)
 		{
 			state = pause;
-
 		}
 	}
 
@@ -202,7 +201,7 @@ void Scene::update_bootInterface()
 {
 	update_groundPosition();
 	temp = time % 64;
-	
+
 }
 
 void Scene::update_groundPosition()
@@ -238,7 +237,7 @@ void Scene::update_gameing()
 
 	/***************计算高度************************/
 	acceleration += 9.8;
-	birdHeight += acceleration*3/ 77;
+	birdHeight += acceleration * 3 / 77;
 
 	/***************柱子的移动**********************/
 	for (int c = 0; c < 3; c++)
@@ -257,7 +256,7 @@ void Scene::update_gameing()
 	{
 		if (obstacle[c].x == 100 - 66)
 		{
-
+			win->mMusic->point->play();
 			++score;
 		}
 	}
@@ -265,6 +264,7 @@ void Scene::update_gameing()
 	if (isGameOver())
 	{
 		state = dead;
+		win->mMusic->hit->play();
 	}
 }
 
@@ -346,93 +346,93 @@ void Scene::rend_bootInterface()
 		if (daystate == 0)
 		{
 			if (birdcolor == yellow)
-			win->Draw(win->mPicture->readyUp_day_yellow, 0, 0);
+				win->Draw(win->mPicture->readyUp_day_yellow, 0, 0);
 			else if (birdcolor == red)
-			win->Draw(win->mPicture->readyUp_day_red, 0, 0);
+				win->Draw(win->mPicture->readyUp_day_red, 0, 0);
 			else if (birdcolor == blue)
-			win->Draw(win->mPicture->readyUp_day_blue, 0, 0);
+				win->Draw(win->mPicture->readyUp_day_blue, 0, 0);
 			else if (birdcolor == green)
-			win->Draw(win->mPicture->readyUp_day_green, 0, 0);
+				win->Draw(win->mPicture->readyUp_day_green, 0, 0);
 		}
 		else
 		{
 			if (birdcolor == yellow)
-			win->Draw(win->mPicture->readyUp_night_yellow, 0, 0);
+				win->Draw(win->mPicture->readyUp_night_yellow, 0, 0);
 			else if (birdcolor == red)
-			win->Draw(win->mPicture->readyUp_night_red, 0, 0);
+				win->Draw(win->mPicture->readyUp_night_red, 0, 0);
 			else if (birdcolor == blue)
-			win->Draw(win->mPicture->readyUp_night_blue, 0, 0);
+				win->Draw(win->mPicture->readyUp_night_blue, 0, 0);
 			else if (birdcolor == green)
-			win->Draw(win->mPicture->readyUp_night_green, 0, 0);
+				win->Draw(win->mPicture->readyUp_night_green, 0, 0);
 		}
 	if (temp >= 16 && temp < 32)
 		if (daystate == 0)
 		{
 			if (birdcolor == yellow)
-			win->Draw(win->mPicture->readyCentered_day_yellow, 0, 0);
+				win->Draw(win->mPicture->readyCentered_day_yellow, 0, 0);
 			else if (birdcolor == red)
-			win->Draw(win->mPicture->readyCentered_day_red, 0, 0);
+				win->Draw(win->mPicture->readyCentered_day_red, 0, 0);
 			else if (birdcolor == blue)
-			win->Draw(win->mPicture->readyCentered_day_blue, 0, 0);
+				win->Draw(win->mPicture->readyCentered_day_blue, 0, 0);
 			else if (birdcolor == green)
-			win->Draw(win->mPicture->readyCentered_day_green, 0, 0);
+				win->Draw(win->mPicture->readyCentered_day_green, 0, 0);
 		}
 		else
 		{
 			if (birdcolor == yellow)
 				win->Draw(win->mPicture->readyCentered_night_yellow, 0, 0);
 			else if (birdcolor == red)
-				win->Draw(win->mPicture->readyCentered_night_red,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_red, 0, 0);
 			else if (birdcolor == blue)
-				win->Draw(win->mPicture->readyCentered_night_blue,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_blue, 0, 0);
 			else if (birdcolor == green)
-				win->Draw(win->mPicture->readyCentered_night_green,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_green, 0, 0);
 		}
 	if (temp >= 32 && temp < 48)
 		if (daystate == 0)
 		{
 			if (birdcolor == yellow)
-				win->Draw(win->mPicture->readyDown_day_yellow,0, 0);
+				win->Draw(win->mPicture->readyDown_day_yellow, 0, 0);
 			else if (birdcolor == red)
-				win->Draw(win->mPicture->readyDown_day_red,0, 0);
+				win->Draw(win->mPicture->readyDown_day_red, 0, 0);
 			else if (birdcolor == blue)
-				win->Draw(win->mPicture->readyDown_day_blue,0, 0);
+				win->Draw(win->mPicture->readyDown_day_blue, 0, 0);
 			else if (birdcolor == green)
-				win->Draw(win->mPicture->readyDown_day_green,0, 0);
+				win->Draw(win->mPicture->readyDown_day_green, 0, 0);
 		}
 		else
 		{
 			if (birdcolor == yellow)
-				win->Draw(win->mPicture->readyDown_night_yellow,0, 0);
+				win->Draw(win->mPicture->readyDown_night_yellow, 0, 0);
 			else if (birdcolor == red)
-				win->Draw(win->mPicture->readyDown_night_red,0, 0);
+				win->Draw(win->mPicture->readyDown_night_red, 0, 0);
 			else if (birdcolor == blue)
-				win->Draw(win->mPicture->readyDown_night_blue,0, 0);
+				win->Draw(win->mPicture->readyDown_night_blue, 0, 0);
 			else if (birdcolor == green)
-				win->Draw(win->mPicture->readyDown_night_green,0, 0);
+				win->Draw(win->mPicture->readyDown_night_green, 0, 0);
 		}
 	if (temp >= 48 && temp < 64)
 		if (daystate == 0)
 		{
 			if (birdcolor == yellow)
-				win->Draw(win->mPicture->readyCentered_day_yellow,0, 0);
+				win->Draw(win->mPicture->readyCentered_day_yellow, 0, 0);
 			else if (birdcolor == red)
-				win->Draw(win->mPicture->readyCentered_day_red,0, 0);
+				win->Draw(win->mPicture->readyCentered_day_red, 0, 0);
 			else if (birdcolor == blue)
-				win->Draw(win->mPicture->readyCentered_day_blue,0, 0);
+				win->Draw(win->mPicture->readyCentered_day_blue, 0, 0);
 			else if (birdcolor == green)
-				win->Draw(win->mPicture->readyCentered_day_green,0, 0);
+				win->Draw(win->mPicture->readyCentered_day_green, 0, 0);
 		}
 		else
 		{
 			if (birdcolor == yellow)
-				win->Draw(win->mPicture->readyCentered_night_yellow,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_yellow, 0, 0);
 			else if (birdcolor == red)
-				win->Draw(win->mPicture->readyCentered_night_red,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_red, 0, 0);
 			else if (birdcolor == blue)
-				win->Draw(win->mPicture->readyCentered_night_blue,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_blue, 0, 0);
 			else if (birdcolor == green)
-				win->Draw(win->mPicture->readyCentered_night_green,0, 0);
+				win->Draw(win->mPicture->readyCentered_night_green, 0, 0);
 
 		}
 
@@ -514,7 +514,7 @@ void Scene::rend_Bird()
 
 void Scene::rend_ground()
 {
-	win->Draw(win->mPicture->ground, groundPosition, 448 );
+	win->Draw(win->mPicture->ground, groundPosition, 448);
 	win->Draw(win->mPicture->ground, groundPosition - 384, 448);
 }
 
@@ -562,7 +562,7 @@ void Scene::rend_birdfall()
 	//模拟鸟下降速度变化
 	acceleration += 9.8;
 	birdHeight += acceleration * 2 / 77;
-	
+
 }
 
 void Scene::rend_scorecard()
@@ -576,13 +576,14 @@ void Scene::rend_scorecard()
 	{
 		deadstate++;
 		win->Draw(win->mPicture->gameOver, 55, 60);
-		
+		win->mMusic->die->play();
 		SDL_Delay(400);	//平均延迟400毫秒
 	}
 	else if (deadstate == 1)
 	{
 		deadstate++;
-		for (int i = 512; i > 150; i -= 6)
+		win->mMusic->wing->play();
+		for (int i = 500; i >= 150; i -=25)
 		{
 			win->Clear();
 			if (daystate == 0)
@@ -599,7 +600,7 @@ void Scene::rend_scorecard()
 		}
 		
 		SDL_Delay(400);
-		
+
 	}
 	else if (deadstate == 2)
 	{
@@ -635,6 +636,8 @@ void Scene::rend_scorecard()
 			SDL_Delay(50);
 		}
 		SDL_Delay(400);
+		if (score > 10)
+			win->mMusic->wing->play();
 	}
 	else if (deadstate == 4)
 	{
@@ -659,7 +662,7 @@ void Scene::rend_scorecard()
 			win->Draw(win->mPicture->gold, 67, 205);
 		if (score >= 50)
 			win->Draw(win->mPicture->platinum, 67, 205);
-			
+
 
 		rend_score_S(271, 195, score);//写出分数
 		rend_score_S(271, 260, maxScore);//打印出最高分数

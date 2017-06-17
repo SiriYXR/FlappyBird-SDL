@@ -14,6 +14,7 @@ Window::Window()
 	mWindow = nullptr;
 	mRenderer = nullptr;
 	mPicture = nullptr;
+	mMusic = nullptr;
 }
 
 
@@ -23,6 +24,7 @@ Window::~Window()
 	SDL_DestroyWindow(mWindow);
 
 	delete mPicture;
+	delete mMusic;
 }
 
 /**
@@ -60,6 +62,13 @@ void Window::Init(std::string title, const int SCREEN_WIDTH, const int SCREEN_HE
 	mPicture = new Picture(mRenderer);
 	if (mPicture == nullptr)
 		throw std::runtime_error("Picture Init Failed");
+	
+	//init Music
+	mMusic = new Music;
+	if (mMusic == nullptr)
+		throw std::runtime_error("Music Init Failed");
+
+	
 }
 
 void Window::Quit()

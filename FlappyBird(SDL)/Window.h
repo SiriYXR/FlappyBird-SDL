@@ -1,13 +1,8 @@
 #pragma once
 #include "Picture.h"
+#include "Music.h"
 
 #include <string>
-
-#pragma comment(lib,"SDL2.lib")
-#pragma comment(lib,"SDL2main.lib")
-#pragma comment(lib,"SDL2test.lib")
-#include <SDL.h>
-#include <stdexcept>
 
 class Window
 {
@@ -37,13 +32,13 @@ public:
 
 public:
 	Picture *mPicture;
+	Music *mMusic;
 
 private:
 	SDL_Window *mWindow;
 	SDL_Renderer *mRenderer;
 	SDL_Rect mBox;
 
-	
 };
 
 

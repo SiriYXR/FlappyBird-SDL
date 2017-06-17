@@ -5,6 +5,7 @@ void mainloop(Window *win)
 {
 	Scene *scene = new Scene(win);
 
+	
 	win->StartMovie();
 	while (true)
 	{
