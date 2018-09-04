@@ -17,6 +17,8 @@ void mainloop(Window *win)
 		scene->update();
 
 		scene->rend();
+
+		SDL_Delay(15);
 	}
 	win->EscapeMovie();
 

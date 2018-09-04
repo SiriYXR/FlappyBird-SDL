@@ -53,7 +53,7 @@ void Window::Init(std::string title, const int SCREEN_WIDTH, const int SCREEN_HE
 		throw std::runtime_error("Failed to create window");
 
 	//Create the renderer
-	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);//SDL_RENDERER_PRESENTVSYNC 同步垂直 稳定帧数与显示器一样为60帧
+	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);//SDL_RENDERER_PRESENTVSYNC 同步垂直 稳定帧数与显示器一样
 	//Make sure it created ok
 	if (mRenderer == nullptr)
 		throw std::runtime_error("Failed to create renderer");
