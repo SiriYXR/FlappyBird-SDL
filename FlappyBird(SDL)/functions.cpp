@@ -36,7 +36,8 @@ int Myrand(int max,int min)
 	do
 	{
 		num = (int)rand() % max;
-	} while (num < min || num > max);
+	} 
+	while (num < min || num > max);
 
 	return num;
 }
