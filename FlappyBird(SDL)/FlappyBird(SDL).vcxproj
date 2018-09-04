@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_mixer-2.0.1\include;D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_ttf-2.0.14\include;D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_image-2.0.1\include;D:\SDL\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_mixer-2.0.1\lib\x86;D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_ttf-2.0.14\lib\x86;D:\SDL\SDL2-2.0.5\ExceptLib\SDL2_image-2.0.1\lib\x86;D:\SDL\SDL2-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;$(IncludePath)</IncludePath>
+    <LibraryPath>lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

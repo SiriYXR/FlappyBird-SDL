@@ -14,12 +14,12 @@
 
 int main(int argc,char **argv)
 {
-	Window *window = new Window;
+	Window *window = new Window;//实例化窗口
 	window->Init(u8"FlappyBird(SDL)", 384, 512);//添加u8以支持中文
 
-	mainloop(window);
+	mainloop(window);//游戏循环
 
-	window->Quit();
-	delete window;
+	window->Quit();//关闭窗口
+	delete window;//删除窗口
 	return 0;
 }

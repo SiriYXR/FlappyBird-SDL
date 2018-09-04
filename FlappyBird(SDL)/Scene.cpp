@@ -3,10 +3,10 @@
 
 Scene::Scene(Window *win) :win(win)
 {
-	groundPosition = 0;
-	wingsMark = 0;
+	groundPosition = 0;//ground图片位置
+	wingsMark = 0;//鸟的状态
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)//障碍物
 	{
 		obstacle[i].h = 0;
 		obstacle[i].x = 0;
@@ -225,7 +225,7 @@ void Scene::update_init()
 	keyDown = 10;
 	deadstate = 0;
 
-	for (int i = 0, x = 700; i < 3; ++i, x += 240)
+	for (int i = 0, x = 700; i < 3; ++i, x += 240)//设置障碍物的初始位置
 		obstacle[i].x = x;
 
 	state = gameing;
